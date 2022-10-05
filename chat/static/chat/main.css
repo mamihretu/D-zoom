@@ -1,0 +1,76 @@
+
+
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #111;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  line-height: 1.7;
+  font-size: 13px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto;
+  gap: 2px;
+  background-color: #2196F3;
+  padding: 2px;
+  height: 100vh;
+}
+
+.grid-container > div {
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.local-navbar {
+  grid-area: 1 / 1 / 2 / 7;
+  height :60%;   /*60% of area assigned by grid not 50% of total*/
+
+}
+
+.video-display {
+  grid-area: 2 / 1 / 6 / 6 ;
+}
+
+.chat-display {
+  grid-area: 2 / 6 / 7 / 7;
+}
+
+
+.video-control {
+  grid-area: 6/ 1/ 7 / 6;
+}
+
+.video-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: black;
+  gap: 2px;
+  padding: 2px;
+  height :100%;
+}
+
+.video1 {
+  background-color: rgba(100, 100, 100, 0.8);
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.video2 {
+  background-color: rgba(100, 100, 100, 0.8);
+}
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 500px) {
+  .grid-container {
+    grid-template-columns: auto;
+  }
+}
