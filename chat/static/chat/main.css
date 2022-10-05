@@ -30,23 +30,41 @@ body {
   text-align: center;
 }
 
-.item1 {
+.local-navbar {
   grid-area: 1 / 1 / 2 / 7;
   height :60%;   /*60% of area assigned by grid not 50% of total*/
 
 }
 
-.item2 {
+.video-display {
   grid-area: 2 / 1 / 6 / 6 ;
 }
 
-.item3 {
+.chat-display {
   grid-area: 2 / 6 / 7 / 7;
 }
 
 
-.item4 {
+.video-control {
   grid-area: 6/ 1/ 7 / 6;
+}
+
+.video-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: black;
+  gap: 2px;
+  padding: 2px;
+  height :100%;
+}
+
+.video1 {
+  background-color: rgba(100, 100, 100, 0.8);
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.video2 {
+  background-color: rgba(100, 100, 100, 0.8);
 }
 
 
