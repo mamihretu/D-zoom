@@ -58,8 +58,8 @@ body {
   height :100%;
 }
 
-.video1 {
-  background-color: rgba(100, 100, 100, 0.8);
+.video1, #local-video {
+  /*background-color: rgba(100, 100, 100, 0.8);*/
   grid-area: 1 / 1 / 2 / 2;
 }
 

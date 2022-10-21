@@ -55,8 +55,6 @@
 						</div>
 
 						<div class="video2">
-							<video autoplay playsinline>
-							</video>
 						</div>										
 				</div>
 			</div>
@@ -66,8 +64,8 @@
 			  	<div class="header">
 				    <h3 id="label-username" style="color:white;"> User name</h3>
 					<div>
-						<input class="form-control me-2" type="search" placeholder="roomID" aria-label="Search">
-							<button class="btn btn-outline-success" type="submit">Join Room</button>
+						<input id="username"class="form-control me-2" type="search" placeholder="roomID" aria-label="Search">
+							<button id = "btn-join" class="btn btn-outline-success" >Join Room</button>
 						</input>
 					</div>
 			  	</div>
@@ -78,8 +76,8 @@
 					</div>
 
 					<div>
-						<input class="form-control me-2" type="search" placeholder="Message" aria-label="Search">
-							<button class="btn btn-outline-success" type="submit">Send Message</button>
+						<input class="form-control me-2" type="search" id="msg" placeholder="Message" aria-label="Search">
+							<button class="btn btn-outline-success" id="btn-send-message" type="submit">Send Message</button>
 						</input>
 					</div>
 					<button class="btn btn-outline-success" type="submit">Share screen</button>
@@ -88,8 +86,8 @@
 
 			<div class="video-control">
 				<div>
-					<button class="btn btn-outline-success" type="submit">Mute Audio</button>
-					<button class="btn btn-outline-success" type="submit">Video Off</button>				
+					<button class="btn btn-outline-success" id="audio-toggle" >Mute Audio</button>
+					<button class="btn btn-outline-success" id="video-toggle" >Video Off</button>				
 
 				</div>					
 			</div>			
