@@ -1,0 +1,135 @@
+body,html{
+		height: 100%;
+		margin: 0;
+    background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	  font-family: 'Barlow Semi Condensed', sans-serif;
+	  line-height: 1.7;
+	  font-size: 13px;  
+	  box-sizing: border-box;
+  	padding: 0;      
+	}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+  gap: 2px;
+  padding: 2px;
+  height: 100vh;
+}
+
+.nav-bar {
+  grid-area: 1 / 1 / 2 / 14;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 8px;
+}
+
+.setting {
+	float: right;
+	color: white;
+	margin: 1em;
+	background-color: rgba(0, 0, 0, 0.8);		
+} 
+
+
+.participants {
+  grid-area: 2/ 13 / 10 / 14;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 8px;
+
+}
+
+.participants-header {
+	padding: 0.2em;
+	color: white;  
+	text-align : center;
+	background-color: rgba(19, 73, 128, 0.5);
+	font-size: 2.2em;
+	margin-bottom: 0.4em;
+
+}
+
+.person {
+	background: linear-gradient(to right, #aA8E75, #1A8EE7, #aA8E75);
+	margin: 0.2em;
+	border-top-left-radius: 6em 6em;
+	border-top-right-radius: 6em 6em;
+	border-bottom-right-radius: 6em 6em;
+	border-bottom-left-radius: 6em 6em;	
+	text-align: center;
+	font-family: 'Barlow Semi Condensed', sans-serif; 
+	font-size: 1.8em;
+	color: white;
+
+}
+
+.global-message-area {
+	grid-area: 2 / 2 / 10 / 10;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 4px;
+}
+
+
+.outgoing-message-area {
+	grid-area: 2 / 2 / 9 / 5;
+}
+
+.incoming-message-area {
+	grid-area: 2 / 7 / 9 / 10;
+}
+
+
+.message-input {
+	grid-area: 10 / 6 / 12 / 9;
+	margin: 1em;
+
+}
+
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+/*@media (max-width: 500px) {
+	  .grid-container {
+    grid-template-columns: auto;
+  }
+}*/
+
+
+
+/*.grid-container {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  background-color: #274154;
+  height: 100vh;
+}*/
+
+
+.navbar {
+  grid-area: 1 / 1 / 2 / 7;
+  height :60%;
+
+}
+
+.video-display {
+  grid-area: 2 / 2 / 10/ 12 ;
+}
+
+
+.video-control {
+  grid-area: 6/ 6/ 7 / 10;
+}
+
+.video-container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: black;
+  height :100%;
+}
+
+.video {
+  height :440px;
+  width: 370px;
+}
+
+

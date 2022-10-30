@@ -1,76 +1,107 @@
-
-
-
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: #111;
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  line-height: 1.7;
-  font-size: 13px;
-}
-
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
-  grid-template-rows: auto auto auto auto auto auto;
-  gap: 2px;
-  background-color: #2196F3;
-  padding: 2px;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  background-color: #274154;
   height: 100vh;
 }
 
-.grid-container > div {
-  background-color: rgba(0, 0, 0, 0.8);
-  text-align: center;
-}
 
-.local-navbar {
+.navbar {
   grid-area: 1 / 1 / 2 / 7;
-  height :60%;   /*60% of area assigned by grid not 50% of total*/
+  height :60%;
 
 }
 
 .video-display {
-  grid-area: 2 / 1 / 6 / 6 ;
-}
-
-.chat-display {
-  grid-area: 2 / 6 / 7 / 7;
+  grid-area: 2 / 2 / 6 / 11 ;
 }
 
 
 .video-control {
-  grid-area: 6/ 1/ 7 / 6;
+  grid-area: 6/ 6/ 7 / 10;
 }
 
-.video-container {
+.video-container{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   background-color: black;
-  gap: 2px;
-  padding: 2px;
   height :100%;
 }
 
-.video1, #local-video {
-  /*background-color: rgba(100, 100, 100, 0.8);*/
-  grid-area: 1 / 1 / 2 / 2;
-}
-
-.video2 {
-  background-color: rgba(100, 100, 100, 0.8);
+.video {
+  height :440px;
+  width: 370px;
 }
 
 
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media (max-width: 500px) {
-  .grid-container {
-    grid-template-columns: auto;
-  }
+
+
+
+
+
+
+
+/* The sidebar menu */
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
 }
