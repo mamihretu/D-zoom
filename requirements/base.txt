@@ -36,4 +36,4 @@ txaio==22.2.1
 types-cryptography==3.3.23.1
 typing_extensions==4.4.0
 urllib3==1.26.12
-zope.interface==5.4.0
+zope.interface==5.5.0
