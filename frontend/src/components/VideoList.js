@@ -1,45 +1,32 @@
 import React, { useState} from 'react';
-import "../../static/css/message.css";
 
 
-
-const MessageList = (props) => {
-	const messageArray = props.messages;
-	console.log(messageArray);
-	const reducedArray = messageArray.length > 10 ? messageArray.slice(-10) : messageArray; 
-	const receivedMessages = reducedArray.filter(receivedFilter);
-	const sentMessages = reducedArray.filter(sentFilter);
+const VideoList = (props) => {
+    const videoArray = props.participants;
+    const uniqueVideos = [...new Set(videoArray)]
 
 
-	function receivedFilter(message) {
-		return message.username != props.username; 
-	}
+    if(uniqueVideos.length <= 0){
+        return <h1>No Videos yet </h1>;
 
-	function sentFilter(message) {
-		return message.username == props.username; 
-	}
+    }else{
+        return (
 
-	if(messageArray.length <= 0){
-		return <h1>Still no messages</h1>;
+                <div key={id} className="videos">
+                      {uniqueVideos.map((video, id) => (
+                            <video ref={video} className="video" autoPlay playsInline> </video>
 
-	}else{
+                      ))}
+                </div>
 
-		return (
-				<>
-			      {props.type === "incoming" ? (receivedMessages.map((message, id) => (
-			        <div key={id} className="incoming"> {message.content} </div> 
-			      )))
-			      :
-				  ( sentMessages.map((message, id) => (
-				      <div key={id} className="outgoing"> {message.content} </div> 
-				   )))}	
-				</>			
-			);
-	}
+            );
+    }
 }
 
 
-export default MessageList;
+export default VideoList;
+
+
 
 
 
