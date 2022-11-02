@@ -1,0 +1,53 @@
+version: '3'
+
+volumes:
+  final_form_local_postgres_data: {}
+  final_form_local_postgres_data_backups: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: final_form_local_django
+    container_name: final_form_local_django
+    platform: linux/x86_64
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: final_form_production_postgres
+    container_name: final_form_local_postgres
+    volumes:
+      - final_form_local_postgres_data:/var/lib/postgresql/data:Z
+      - final_form_local_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/.local/.postgres
+
+  docs:
+    image: final_form_local_docs
+    container_name: final_form_local_docs
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: ./compose/local/docs/Dockerfile
+    env_file:
+      - ./.envs/.local/.django
+    volumes:
+      - ./docs:/docs:z
+      - ./config:/app/config:z
+      - ./final_form:/app/final_form:z
+    ports:
+      - "9000:9000"
+    command: /start-docs
