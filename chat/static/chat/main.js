@@ -6,172 +6,153 @@ var UsernameInput = document.querySelector('#username');
 var btnJoin = document.querySelector('#btn-join');
 var userName;
 var webSocket;
-var mapPeers = {};
+// var mapPeers = {};
 
 
-function webSocketOnMessage(event) {
-	var parseData = JSON.parse(event.data);
-	var peerUserName = parseData['peer'];
-	var action = parseData['action'];
-	if(userName === peerUserName){
-		return;
-	}
+// function webSocketOnMessage(event) {
+// 	var parsedData = JSON.parse(event.data);
+// 	var peerUserName = parsedData['peer'];
+// 	var action = parsedData['action'];
+// 	if(userName === peerUserName){
+// 		return;
+// 	}
 
-	var reciever_channel_name = parseData['message']['reciever_channel_name'];
+// 	var reciever_channel_name = parsedData['message']['reciever_channel_name'];
 
-	if(action === 'new-peer'){
-		createOffer(peerUserName, reciever_channel_name);
-		return;
+// 	if(action === 'new-peer'){
+// 		createOffer(peerUserName, reciever_channel_name);
+// 		return;
 
-	}
-
-
-	if(action === 'new-offer'){
-		var offer = parseData['message']['sdp'];
-
-		createAnswer(offer, peerUserName, reciever_channel_name);
-
-		return;
-	}
-
-	if(action === 'new-answer'){
-		var answer = parseData['message']['sdp'];
-
-		var peer = mapPeers[peerUserName][0];
-
-		peer.setRemoteDescription(answer);
-
-		return;
-	}
-}
-
-btnJoin.addEventListener('click', () => {
-	userName = UsernameInput.value;
-
-	if (userName) {
-		UsernameInput.value = '';
-		UsernameInput.disabled = true;
-		UsernameInput.style.visibility = 'hidden';
-
-		btnJoin.disabled = true;
-		btnJoin.style.visibility = 'hidden';	
-
-		var labelUsername = document.querySelector('#label-username');
-		labelUsername.innerHTML = userName;	
-
-		var loc = window.location;
-		var protocol = 'ws://';
-
-		if(loc.protocol === 'https:'){
-			protocol = 'wss://';
-		}
-
-		var endPoint = protocol + loc.host + loc.pathname;
-
-		webSocket = new WebSocket(endPoint);
-
-		webSocket.addEventListener('open', (e) => {
-			console.log('connection opened');
-
-			sendSignal('new-peer', {});
-		});
-		webSocket.addEventListener('message', webSocketOnMessage);
-		webSocket.addEventListener('close',(e) => {
-			console.log('connection closed');
-		});
-		webSocket.addEventListener('error',(e) => {
-			console.log('error occured');
-		});
-
-	}
-	else{
-		return;
-	}
-});
+// 	}
 
 
-var localStream = new MediaStream();
+// 	if(action === 'new-offer'){
+// 		var offer = parsedData['message']['sdp'];
 
-const constraints = {
-	'video': true,
-	'audio': true
-};
+// 		createAnswer(offer, peerUserName, reciever_channel_name);
 
-const localVideo = document.querySelector('#local-video');
+// 		return;
+// 	}
 
-const btnToggleAudio = document.querySelector('#audio-toggle');
+// 	if(action === 'new-answer'){
+// 		var answer = parsedData['message']['sdp'];
 
-const btnTogglevideo = document.querySelector('#video-toggle');
+// 		var peer = mapPeers[peerUserName][0];
+
+// 		peer.setRemoteDescription(answer);
+
+// 		return;
+// 	}
+// }
+
+	// btnJoin.addEventListener('click', () => {
+	// 	userName = UsernameInput.value;
+
+	// 	if (userName) {
+	// 		UsernameInput.value = '';
+	// 		UsernameInput.disabled = true;
+	// 		UsernameInput.style.visibility = 'hidden';
+
+	// 		btnJoin.disabled = true;
+	// 		btnJoin.style.visibility = 'hidden';
+
+	// 		var labelUsername = document.querySelector('#label-username');
+	// 		labelUsername.innerHTML = userName;
+
+	// 		var loc = window.location;
+	// 		var protocol = 'ws://';
+
+	// 		if(loc.protocol === 'https:'){
+	// 			protocol = 'wss://';
+	// 		}
+
+	// 		var endPoint = protocol + loc.host + loc.pathname;
+
+	// 		webSocket = new WebSocket(endPoint);
+
+	// 		webSocket.addEventListener('open', (e) => {
+	// 			console.log('connection opened');
+
+	// 			sendSignal('new-peer', {});
+	// 		});
+	// 		webSocket.addEventListener('message', webSocketOnMessage);
+	// 		webSocket.addEventListener('close',(e) => {
+	// 			console.log('connection closed');
+	// 		});
+	// 		webSocket.addEventListener('error',(e) => {
+	// 			console.log('error occured');
+	// 		});
+
+	// 	}
+	// 	else{
+	// 		return;
+	// 	}
+	// });
 
 
-var userMedia = navigator.mediaDevices.getUserMedia(constraints)
-				.then( stream => {
-						localStream = stream;
-						localVideo.srcObject = localStream;
-						localVideo.muted = true;
+// var localStream = new MediaStream();
 
-						var audioTracks = stream.getAudioTracks();
-						var videoTracks = stream.getVideoTracks();
+// const constraints = {
+// 	'video': true,
+// 	'audio': true
+// };
 
-						audioTracks[0].enabled = true;
-						videoTracks[0].enabled = true;
+// const localVideo = document.querySelector('#local-video');
 
-						btnToggleAudio.addEventListener('click', ()=> {
-							audioTracks[0].enabled = !audioTracks[0].enabled;
+// const btnToggleAudio = document.querySelector('#audio-toggle');
 
-							if(audioTracks[0].enabled){
-								btnToggleAudio.innerHTML = 'Mute';
-
-								return;
-							}
-							btnToggleAudio.innerHTML = 'Unmute';
-
-						});
+// const btnTogglevideo = document.querySelector('#video-toggle');
 
 
-						btnToggleVideo.addEventListener('click', () => {
-							videoTracks[0].enabled = !videoTracks[0].enabled;
+// var userMedia = navigator.mediaDevices.getUserMedia(constraints)
+// 				.then( stream => {
+// 						localStream = stream;
+// 						localVideo.srcObject = localStream;
+// 						localVideo.muted = true;
 
-							if(videoTracks[0].enabled){
-								btnToggleVideo.innerHTML = 'Video off';
+// 						var audioTracks = stream.getAudioTracks();
+// 						var videoTracks = stream.getVideoTracks();
 
-								return;
-							}
-							btnToggleVideo.innerHTML = 'Video ON';
+// 						audioTracks[0].enabled = true;
+// 						videoTracks[0].enabled = true;
 
-						});
+// 						btnToggleAudio.addEventListener('click', ()=> {
+// 							audioTracks[0].enabled = !audioTracks[0].enabled;
 
-						})
-				.catch(error => {
-						console.log('error accesing media devices', error);
-						 });
+// 							if(audioTracks[0].enabled){
+// 								btnToggleAudio.innerHTML = 'Mute';
+
+// 								return;
+// 							}
+// 							btnToggleAudio.innerHTML = 'Unmute';
+
+// 						});
 
 
-// var btnSendMsg = document.querySelector('#btn-send-message');
-// var messageInput = document.querySelector('#msg');
-// var messageList = document.querySelector('#message-list');
+// 						btnToggleVideo.addEventListener('click', () => {
+// 							videoTracks[0].enabled = !videoTracks[0].enabled;
+
+// 							if(videoTracks[0].enabled){
+// 								btnToggleVideo.innerHTML = 'Video off';
+
+// 								return;
+// 							}
+// 							btnToggleVideo.innerHTML = 'Video ON';
+
+// 						});
+
+// 						})
+// 				.catch(error => {
+// 						console.log('error accesing media devices', error);
+// 						 });
+
+
+
 
 // btnSendMsg.addEventListener('click', sendMsgOnClick);
 
 
 
-function sendMsgOnClick(){
-	var message = messageInput.value;
-	console.log(message);
-
-	var li = document.createElement('li');
-	li.appendChild(document.createTextNode('Me:' + message));
-	messageList.appendChild(li);
-
-	var dataChannels = getDataChannels();
-
-	message = username + ':' + message;
-
-	for(index in dataChannels){
-		dataChannels[index].send(message);
-	}
-	messageInput.value = '';
-}
 
 
 function getDataChannels(){
@@ -187,171 +168,172 @@ function getDataChannels(){
 
 
 
-function sendSignal(action, message){
+// function sendSignal(action, message){
 
-	var jsonStr = JSON.stringify({
-				'peer': userName,
-				'action': action,
-				'message': message
-			});	
+// 	var jsonStr = JSON.stringify({
+// 				'peer': userName,
+// 				'action': action,
+// 				'message': message
+// 			});
 
-	webSocket.send(jsonStr);
+// 	webSocket.send(jsonStr);
 
-}
-
-
-function createOffer(peerUserName, reciever_channel_name) {
-	var peer = new RTCPeerConnection(null);
-
-	addLocalTracks(peer);
-
-	var dc = peer.createDataChannel('channel');
-	dc.addEventListener('open', () => {
-		console.log('connection opened');
-	});
-
-	dc.addEventListener('message', dcOnMessage);
-
-	var remoteVideo = createVideo(peerUserName);
-
-	setOnTreack(track, remoteVideo);
-
-	mapPeers[peerUserName] = [peer, dc];
-
-	peer.addEventListener('iceconnectionstatechange', () => {
-		var iceConnectionState = peer.iceConnectionState;
-
-		if(iceConnectionState === 'failed' || iceConnectionState === 'disconnected' || iceConnectionState === 'closed'){
-			delete mapPeers[peerUserName];
-
-			if(iceConnectionState != 'closed'){
-				peer.close();
-			}
-
-			removeVideo(remoteVideo);
-		}
-	});
+// }
 
 
-	peer.addEventListener('icecandidate', (event) => {
-		if(event.candidate){
-			console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
+// function createOffer(peerUserName, reciever_channel_name) {
+// 	var peer = new RTCPeerConnection(null);
 
-			return;
-		}
+// 	addLocalTracks(peer);
 
-		sendSignal('new-offer', {
-			'sdp': peer.localDescription,
-			'reciever_channel_name': reciever_channel_name
-		});
-	});
+// 	var dc = peer.createDataChannel('channel');
+// 	dc.addEventListener('open', () => {
+// 		console.log('connection opened');
+// 	});
 
+// 	dc.addEventListener('message', dcOnMessage);
 
-	peer.createOffer()
-		.then(response => peer.setLocalDescription(response))
-		.then(() => {
-			console.log('local description set successfully');
-		});
+// 	var remoteVideo = createVideo(peerUserName);
 
-}
+// 	setOnTreack(track, remoteVideo);
 
+// 	mapPeers[peerUserName] = [peer, dc];
 
-function createAnswer(offer, peerUserName, reciever_channel_name){
+// 	peer.addEventListener('iceconnectionstatechange', () => {
+// 		var iceConnectionState = peer.iceConnectionState;
 
-	var peer = new RTCPeerConnection(null);
+// 		if(iceConnectionState === 'failed' || iceConnectionState === 'disconnected' || iceConnectionState === 'closed'){
+// 			delete mapPeers[peerUserName];
 
-	addLocalTracks(peer);
+// 			if(iceConnectionState != 'closed'){
+// 				peer.close();
+// 			}
 
-	var remoteVideo = createVideo(peerUserName);
-
-	setOnTreack(track, remoteVideo);
-
-	peer.addEventListener('datachannel', event => {
-		peer.dc = event.channel;
-
-		peer.dc.addEventListener('open', () => {
-			console.log('Connection opened');
-		});
-
-		peer.dc.addEventListener('message', dcOnMessage);
-
-		mapPeers[peerUserName] = [peer, peer.dc];
-	});
+// 			removeVideo(remoteVideo);
+// 		}
+// 	});
 
 
-	peer.addEventListener('iceconnectionstatechange', () => {
-		var iceConnectionState = peer.iceConnectionState;
+// 	peer.addEventListener('icecandidate', (event) => {
+// 		if(event.candidate){
+// 			console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
 
-		if(iceConnectionState === 'failed' || iceConnectionState === 'disconnected' || iceConnectionState === 'closed'){
-			delete mapPeers[peerUserName];
+// 			return;
+// 		}
 
-			if(iceConnectionState != 'closed'){
-				peer.close();
-			}
-
-			removeVideo(remoteVideo);
-		}
-	});
-
-
-	peer.addEventListener('icecandidate', (event) => {
-		if(event.candidate){
-			console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
-
-			return;
-		}
-
-		sendSignal('new-answer', {
-			'sdp': peer.localDescription,
-			'reciever_channel_name': reciever_channel_name
-		});
-	});
+// 		sendSignal('new-offer', {
+// 			'sdp': peer.localDescription,
+// 			'reciever_channel_name': reciever_channel_name
+// 		});
+// 	});
 
 
-	peer.setRemoteDescription(offer)
-		.then( () => {
-			console.log('Remote description set successfully for %s', peerUserName);
+// 	peer.createOffer()
+// 		.then(response => peer.setLocalDescription(response))
+// 		.then(() => {
+// 			console.log('local description set successfully');
+// 		});
 
-			return peer.createAnswer();
-	  })
-		.then(answer => {
-			console.log('Answer created');
-
-			peer.setLocalDescription(answer);
-		})
+// }
 
 
 
-}
+// function createAnswer(offer, peerUserName, reciever_channel_name){
 
-function removeVideo(video){
-	var videoWrapper = video.parentNode;
+// 	var peer = new RTCPeerConnection(null);
 
-	videoWrapper.parentNode.removeChild(videoWrapper);
-}
+// 	addLocalTracks(peer);
+
+// 	var remoteVideo = createVideo(peerUserName);
+
+// 	setOnTreack(track, remoteVideo);
+
+// 	peer.addEventListener('datachannel', event => {
+// 		peer.dc = event.channel;
+
+// 		peer.dc.addEventListener('open', () => {
+// 			console.log('Connection opened');
+// 		});
+
+// 		peer.dc.addEventListener('message', dcOnMessage);
+
+// 		mapPeers[peerUserName] = [peer, peer.dc];
+// 	});
+
+
+// 	peer.addEventListener('iceconnectionstatechange', () => {
+// 		var iceConnectionState = peer.iceConnectionState;
+
+// 		if(iceConnectionState === 'failed' || iceConnectionState === 'disconnected' || iceConnectionState === 'closed'){
+// 			delete mapPeers[peerUserName];
+
+// 			if(iceConnectionState != 'closed'){
+// 				peer.close();
+// 			}
+
+// 			removeVideo(remoteVideo);
+// 		}
+// 	});
+
+
+// 	peer.addEventListener('icecandidate', (event) => {
+// 		if(event.candidate){
+// 			console.log('New ice candidate: ', JSON.stringify(peer.localDescription));
+
+// 			return;
+// 		}
+
+// 		sendSignal('new-answer', {
+// 			'sdp': peer.localDescription,
+// 			'reciever_channel_name': reciever_channel_name
+// 		});
+// 	});
+
+
+// 	peer.setRemoteDescription(offer)
+// 		.then( () => {
+// 			console.log('Remote description set successfully for %s', peerUserName);
+
+// 			return peer.createAnswer();
+// 	  })
+// 		.then(answer => {
+// 			console.log('Answer created');
+
+// 			peer.setLocalDescription(answer);
+// 		})
+
+
+
+// }
+
+// function removeVideo(video){
+// 	var videoWrapper = video.parentNode;
+
+// 	videoWrapper.parentNode.removeChild(videoWrapper);
+// }
 
 
 
 
-function createVideo(peerUserName){
-	var videoContainer = document.querySelector('#video-container');
+// function createVideo(peerUserName){
+// 	var videoContainer = document.querySelector('#video-container');
 
-	var remoteVideo = document.createElement('video');
+// 	var remoteVideo = document.createElement('video');
 
-	remoteVideo.id = peerUserName + '-video';
+// 	remoteVideo.id = peerUserName + '-video';
 
-	remoteVideo.autoplay = true;
-	remoteVideo.playsinline = true;
+// 	remoteVideo.autoplay = true;
+// 	remoteVideo.playsinline = true;
 
-	var videoWrapper = document.createElement('div');
+// 	var videoWrapper = document.createElement('div');
 
-	videoContainer.appendChild(videoWrapper);
+// 	videoContainer.appendChild(videoWrapper);
 
-	videoWrapper.appendChild(remoteVideo);
+// 	videoWrapper.appendChild(remoteVideo);
 
-	return remoteVideo;
+// 	return remoteVideo;
 
-}
+// }
 
 function setOnTrack(peer, remoteVideo){
 	var remoteStream = new MediaStream();
@@ -365,15 +347,15 @@ function setOnTrack(peer, remoteVideo){
 
 
 
-function dcOnMessage(event){
-	var message = event.data;
+// function dcOnMessage(event){
+// 	var message = event.data;
 
-	var li = document.createElement('li');
-	li.appendChild(document.createTextNode(message));
+// 	var li = document.createElement('li');
+// 	li.appendChild(document.createTextNode(message));
 
-	messageList.appendChild(li);
+// 	messageList.appendChild(li);
 
-}
+// }
 
 function addLocalTracks(peer) {
 	localStream.getTracks().forEach(track => {
@@ -383,17 +365,6 @@ function addLocalTracks(peer) {
 	return;
 }
 
-/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft = "0";
-}
 
 
 

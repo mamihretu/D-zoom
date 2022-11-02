@@ -24,7 +24,7 @@ body,html{
   border-radius: 8px;
 }
 
-.setting {
+.logout {
 	float: right;
 	color: white;
 	margin: 1em;
@@ -63,23 +63,14 @@ body,html{
 
 }
 
-.global-message-area {
-	grid-area: 2 / 2 / 10 / 10;
-	background-color: rgba(0, 0, 0, 0.3);
-	border-radius: 4px;
-}
 
 
-.outgoing-message-area {
-	grid-area: 2 / 2 / 9 / 5;
-}
-
-.incoming-message-area {
+.videoArea {
 	grid-area: 2 / 7 / 9 / 10;
 }
 
 
-.message-input {
+.controlToggles {
 	grid-area: 10 / 6 / 12 / 9;
 	margin: 1em;
 
