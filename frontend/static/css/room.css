@@ -33,6 +33,7 @@ body,html{
 
 
 .participants {
+  width: 100%;
   grid-area: 2/ 13 / 10 / 14;
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 8px;
@@ -63,18 +64,34 @@ body,html{
 
 }
 
-
-
-.videoArea {
-	grid-area: 2 / 7 / 9 / 10;
-}
-
-
 .controlToggles {
 	grid-area: 10 / 6 / 12 / 9;
 	margin: 1em;
 
 }
+
+.navbar {
+  grid-area: 1 / 1 / 2 / 7;
+  height :60%;
+
+}
+
+.videoArea {
+  grid-area: 2 / 2 / 10/ 12 ;
+}
+
+
+.video-control {
+  grid-area: 6/ 6/ 7 / 10;
+}
+
+
+
+.video {
+  height :480px;
+  width: 50%;
+}
+
 
 
 
@@ -96,31 +113,6 @@ body,html{
 }*/
 
 
-.navbar {
-  grid-area: 1 / 1 / 2 / 7;
-  height :60%;
 
-}
-
-.video-display {
-  grid-area: 2 / 2 / 10/ 12 ;
-}
-
-
-.video-control {
-  grid-area: 6/ 6/ 7 / 10;
-}
-
-.video-container{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background-color: black;
-  height :100%;
-}
-
-.video {
-  height :440px;
-  width: 370px;
-}
 
 

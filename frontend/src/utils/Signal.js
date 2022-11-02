@@ -190,42 +190,42 @@ export { createOffer, createAnswer, sendSignal }
 
 
 
-let createOffer = async (MemberId) => {
+// let createOffer = async (MemberId) => {
 
-    // present
-    peerConnection = new RTCPeerConnection(servers)
-    remoteStream = new MediaStream()
-    document.getElementById('user-2').srcObject = remoteStream
+//     // present
+//     peerConnection = new RTCPeerConnection(servers)
+//     remoteStream = new MediaStream()
+//     document.getElementById('user-2').srcObject = remoteStream
 
-    // present
-    localStream.getTracks().forEach((track) => {
-        peerConnection.addTrack(track, localStream)
-    })
+//     // present
+//     localStream.getTracks().forEach((track) => {
+//         peerConnection.addTrack(track, localStream)
+//     })
 
-    // present
-    peerConnection.ontrack = async (event) => {
-        event.streams[0].getTracks().forEach((track) => {
-            remoteStream.addTrack(track)
-        })
-    }
-
-
-   // present
-    peerConnection.onicecandidate = async (event) => {
-        if(event.candidate){
-            document.getElementById('offer-sdp').value = JSON.stringify(peerConnection.localDescription)
-            client.sendMessageToPeer({text:JSON.stringify({'type':'candidate', 'candidate':event.candidate})}, MemberId)
-        }
-    }
-
-    // present
-    let offer = await peerConnection.createOffer()
-    await peerConnection.setLocalDescription(offer)
+//     // present
+//     peerConnection.ontrack = async (event) => {
+//         event.streams[0].getTracks().forEach((track) => {
+//             remoteStream.addTrack(track)
+//         })
+//     }
 
 
-    document.getElementById('offer-sdp').value = JSON.stringify(offer)
-    client.sendMessageToPeer({text:JSON.stringify({'type':'offer', 'offer':offer})}, MemberId)
-}
+//    // present
+//     peerConnection.onicecandidate = async (event) => {
+//         if(event.candidate){
+//             document.getElementById('offer-sdp').value = JSON.stringify(peerConnection.localDescription)
+//             client.sendMessageToPeer({text:JSON.stringify({'type':'candidate', 'candidate':event.candidate})}, MemberId)
+//         }
+//     }
+
+//     // present
+//     let offer = await peerConnection.createOffer()
+//     await peerConnection.setLocalDescription(offer)
+
+
+//     document.getElementById('offer-sdp').value = JSON.stringify(offer)
+//     client.sendMessageToPeer({text:JSON.stringify({'type':'offer', 'offer':offer})}, MemberId)
+// }
 
 
 

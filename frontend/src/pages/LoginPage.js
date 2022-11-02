@@ -13,14 +13,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import getCookie from '../utils/Csrf'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserContext from "../components/UserContext";
 
 
 const theme = createTheme();
 
 export default function Login() {
-      const [username, setUserName] = useState("");
+      const { user, setUser } = useContext(UserContext);
+      const [userName, setUserName] = useState("");
       const [password, setPassword] = useState("");
       const navigate = useNavigate();
 
@@ -30,7 +32,23 @@ export default function Login() {
 
       function loadPassword(event){
         setPassword(event.target.value);
-      }      
+      }
+
+      function forgotPassword(){
+        alert("not implemented yet");
+      }
+
+      function goSignUp(){
+        navigate("/rest-auth/registration");
+      }
+
+
+      useEffect(()=>{
+          if(user){
+            navigate('/');
+          }
+
+      },[user])
 
 
       async function handleSubmit(event) {
@@ -45,17 +63,22 @@ export default function Login() {
               'X-CSRFToken': csrftoken
             },
             body: JSON.stringify({
-              username: username,
+              username: userName,
               password: password
             })
           };
 
           try{
               const response = await fetch('/rest-auth/login/', requestOptions);
-              
+
               if(response.ok){
-                navigate('/');
+
+                const data = await response.json();
+                setUser(userName);
+              }else{
+                alert(response.statusText);
               }
+
           }catch{
             alert("Try again");
           }
@@ -87,7 +110,7 @@ export default function Login() {
                     fullWidth
                     id="Username"
                     label="Username"
-                    name="Username"
+                    name="username"
                     autoComplete="Username"
                     autoFocus
                   />
@@ -116,12 +139,12 @@ export default function Login() {
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Link href="#" variant="body2">
+                      <Link onClick={forgotPassword} variant="body2">
                         Forgot password?
                       </Link>
                     </Grid>
                     <Grid item>
-                      <Link href="#" variant="body2">
+                      <Link onClick={goSignUp} variant="body2">
                         {"Don't have an account? Sign Up"}
                       </Link>
                     </Grid>
@@ -132,3 +155,9 @@ export default function Login() {
           </ThemeProvider>
         );
 }
+
+
+
+
+
+
