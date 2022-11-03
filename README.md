@@ -9,7 +9,7 @@ WEBRTC with a custom built django-channels signaling server.
 
 
 Below is a screen shot of the application, with camera facing a cat picture
-<img width=600px src="https://raw.githubusercontent.com/mamihretu/Doom/frontend/static/images/catsTalkiing.PNG" />
+<img width=600px src="https://raw.githubusercontent.com/mamihretu/Doom/tree/main/frontend/static/images/catsTalkiing.PNG" />
 
 
 
