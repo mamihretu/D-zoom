@@ -10,6 +10,11 @@ WEBRTC with a custom built django-channels signaling server.
 
 Below is a screen shot of the application, with camera facing a cat picture
 
+<<<<<<< HEAD
+=======
+![catsTalking](https://user-images.githubusercontent.com/71546703/199851148-467a4940-d944-493a-a800-455d81d7c93e.png)
+
+>>>>>>> d8e5f0401645622bdc8eeb9890ff09abce94f202
 
 
 
@@ -49,6 +54,7 @@ docker-compose -f local.yml build
 docker-compose -f local.yml up
 
 ```
+
 
 
 
