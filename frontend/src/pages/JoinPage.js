@@ -17,11 +17,10 @@ const JoinPage = () => {
 
 
         useEffect(()=>{
-        console.log(user);
         if(!user){
             navigate("/rest-auth/login");
         }
-        })
+        },[user])
 
 
         function loadRoomIDFromInput(e){

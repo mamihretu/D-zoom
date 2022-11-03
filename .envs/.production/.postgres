@@ -2,6 +2,6 @@
 # ------------------------------------------------------------------------------
 POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
-POSTGRES_DB=final_form
+POSTGRES_DB=Doom
 POSTGRES_USER=DUHoBCwvJphJiNHPaPomrxdGmDTIxkoc
 POSTGRES_PASSWORD=89qSIXUmDVVSuaZOy26zg7hQN2uhK7PqXhOPWmcuo8PyX778XOTtjyQy7zNS5111

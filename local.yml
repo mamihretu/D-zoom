@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
     image: final_form_local_django
-    container_name: final_form_local_django
+    container_name: Doom_local_django
     platform: linux/x86_64
     depends_on:
       - postgres
@@ -35,19 +35,4 @@ services:
     env_file:
       - ./.envs/.local/.postgres
 
-  docs:
-    image: final_form_local_docs
-    container_name: final_form_local_docs
-    platform: linux/x86_64
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - ./.envs/.local/.django
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./final_form:/app/final_form:z
-    ports:
-      - "9000:9000"
-    command: /start-docs
+
