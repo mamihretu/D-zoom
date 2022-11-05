@@ -8,8 +8,8 @@ services:
   django:
     build:
       context: .
-      dockerfile: ./compose/local/django/Dockerfile
-    image: final_form_local_django
+      dockerfile: ./Docker/local/django/Dockerfile
+    image: Doom_local_django
     container_name: Doom_local_django
     platform: linux/x86_64
     depends_on:
@@ -26,12 +26,12 @@ services:
   postgres:
     build:
       context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: final_form_production_postgres
-    container_name: final_form_local_postgres
+      dockerfile: ./Docker/production/postgres/Dockerfile
+    image: Doom_production_postgres
+    container_name: Doom_local_postgres
     volumes:
-      - final_form_local_postgres_data:/var/lib/postgresql/data:Z
-      - final_form_local_postgres_data_backups:/backups:z
+      - Doom_local_postgres_data:/var/lib/postgresql/data:Z
+      - Doom_local_postgres_data_backups:/backups:z
     env_file:
       - ./.envs/.local/.postgres
 
