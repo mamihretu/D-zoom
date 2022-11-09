@@ -53,11 +53,13 @@ COPY --from=python-build-stage /usr/src/app/wheels  /wheels/
 RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
 	&& rm -rf /wheels/
 
-COPY ./compose/production/django/entrypoint /entrypoint
+COPY ./Docker/production/django/entrypoint /entrypoint
+#make end of line to make bash script work on windows
 RUN sed -i 's/\r$//g' /entrypoint
+#make bash script executable
 RUN chmod +x /entrypoint
 
-COPY ./compose/local/django/start /start
+COPY ./Docker/local/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 

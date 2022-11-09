@@ -1,21 +1,17 @@
 from django.urls import resolve, reverse
+from django.test import TestCase
+# from unittest import TestCase
 
-from final_form.users.models import User
+class UrlTestCase(TestCase):
+    def test_register(self):
+        response = self.client.get('rest-auth/registration/')
+        self.assertEqual(response.status_code, 200)
 
+    def test_login(self):
+        response = self.client.get('rest-auth/login')
+        self.assertEqual(response.status_code, 200)
 
-def test_detail(user: User):
-    assert (
-        reverse("users:detail", kwargs={"username": user.username})
-        == f"/users/{user.username}/"
-    )
-    assert resolve(f"/users/{user.username}/").view_name == "users:detail"
+    def test_logout(self):
+        response = self.client.get('rest-auth/logout')
+        self.assertEqual(response.status_code, 200)
 
-
-def test_update():
-    assert reverse("users:update") == "/users/~update/"
-    assert resolve("/users/~update/").view_name == "users:update"
-
-
-def test_redirect():
-    assert reverse("users:redirect") == "/users/~redirect/"
-    assert resolve("/users/~redirect/").view_name == "users:redirect"
