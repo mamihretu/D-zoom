@@ -1,38 +1,19 @@
 version: '3'
 
-volumes:
-  final_form_local_postgres_data: {}
-  final_form_local_postgres_data_backups: {}
 
 services:
   django:
     build:
       context: .
       dockerfile: ./Docker/local/django/Dockerfile
-    image: Doom_local_django
-    container_name: Doom_local_django
-    platform: linux/x86_64
-    depends_on:
-      - postgres
+    image: discourse_local_django
+    container_name: discourse_local_django
     volumes:
-      - .:/app:z
+      - .:/django
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
     ports:
       - "8000:8000"
     command: /start
-
-  postgres:
-    build:
-      context: .
-      dockerfile: ./Docker/production/postgres/Dockerfile
-    image: Doom_production_postgres
-    container_name: Doom_local_postgres
-    volumes:
-      - Doom_local_postgres_data:/var/lib/postgresql/data:Z
-      - Doom_local_postgres_data_backups:/backups:z
-    env_file:
-      - ./.envs/.local/.postgres
-
 

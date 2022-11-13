@@ -24,16 +24,12 @@ const App = () => {
 		<Router>
         <UserContext.Provider value={value}>
 				    <Routes>
-
 				        <Route path = '/'>
-
-						            <Route index element = {<JoinPage/>}/>
-						            <Route path = 'room/:roomID' element = {<RoomPage/>}/>
-						            <Route path = 'rest-auth/login' element = {<LoginPage/>}/>
-						            <Route path = 'rest-auth/registration' element = {<SignUpPage/>}/>
-
+				            <Route index element = {<JoinPage/>}/>
+				            <Route path = 'room/:roomID' element = {<RoomPage/>}/>
+				            <Route path = 'rest-auth/login' element = {<LoginPage/>}/>
+				            <Route path = 'rest-auth/registration' element = {<SignUpPage/>}/>
 				        </Route>
-
 				    </Routes>
         </UserContext.Provider>
 		</Router>

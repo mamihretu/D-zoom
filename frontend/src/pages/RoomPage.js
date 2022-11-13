@@ -39,7 +39,6 @@ const Room = () => {
             sendSignal('new-peer', {});
         }
 
-
         chatSocket.onclose = (e) => {
           console.log('connection closed');
         }
@@ -47,8 +46,6 @@ const Room = () => {
         chatSocket.onerror = (e) => {
           console.log('error occured', e);
         }
-
-
 
         chatSocket.onmessage = (e) =>{
 
@@ -78,6 +75,7 @@ const Room = () => {
         }
 
         setParticipants(participants => [...participants, user]);
+
         async function init(){
             localStream = await navigator.mediaDevices.getUserMedia({'video': true,'audio': true});
             video.current.srcObject = localStream;
