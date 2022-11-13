@@ -6,13 +6,12 @@ services:
     build:
       context: .
       dockerfile: ./Docker/local/django/Dockerfile
-    image: discourse_local_django
-    container_name: discourse_local_django
+    image: doom_local_django
+    container_name: doom_local_django
     volumes:
       - .:/django
     env_file:
       - ./.envs/.local/.django
-      - ./.envs/.local/.postgres
     ports:
       - "8000:8000"
     command: /start
